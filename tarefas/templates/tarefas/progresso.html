@@ -1,0 +1,34 @@
+<h1>Progresso — {{ equipe }}</h1>
+<p><a href="/">Voltar</a></p>
+
+<div class="card">
+  <small>Progresso da equipe</small>
+  <strong>{{ kpis.percentual }}%</strong>
+</div>
+<p>Feitas: {{ kpis.feitas }} de {{ kpis.total }}</p>
+<p>
+  A fazer: {{ kpis.a_fazer }} ·
+  Fazendo: {{ kpis.fazendo }} ·
+  Feito: {{ kpis.feitas }}
+</p>
+
+<table>
+  <tr>
+    <th>Projeto</th>
+    <th>Feitas</th>
+    <th>Total</th>
+    <th>Progresso</th>
+  </tr>
+  {% for item in projetos %}
+  <tr>
+    <td>{{ item.projeto }}</td>
+    <td>{{ item.feitas }}</td>
+    <td>{{ item.total }}</td>
+    <td>{{ item.percentual }}%</td>
+  </tr>
+  {% empty %}
+  <tr>
+    <td>Nenhum projeto cadastrado.</td>
+  </tr>
+  {% endfor %}
+</table>
