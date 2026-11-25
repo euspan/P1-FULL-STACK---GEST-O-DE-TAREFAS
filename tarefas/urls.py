@@ -9,4 +9,5 @@ urlpatterns = [
     path('buscar/', views.buscar_tarefa),
     path('status/', views.filtrar_status),
     path('progresso/', progresso_views.progresso, name='progresso'),
+    path('progresso/csv/', progresso_views.exportar_csv, name='progresso_csv'),
 ]
