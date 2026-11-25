@@ -8,6 +8,8 @@ de Vassouras).
 
 Sistema básico de back-end para gestão de tarefas em equipe, com
 cadastro de projetos, membros, subtarefas e dependências entre elas.
+Os vínculos são guardados em campos inteiros (`projeto_id`,
+`responsavel_id`, `subtarefa_id` e `subtarefa_dependente_id`).
 
 ## Tecnologias
 
@@ -19,15 +21,26 @@ cadastro de projetos, membros, subtarefas e dependências entre elas.
 
 - **Membro**: nome, email, cargo, ativo
 - **Projeto**: nome, descrição, data de início, concluído
-- **Subtarefa**: título, descrição, projeto, responsável, prazo, concluída
-- **Dependencia**: relação entre subtarefas (uma subtarefa depende da
-  conclusão de outra), com indicação se é obrigatória
+- **Subtarefa**: título, descrição, projeto, responsável, prazo e status
+  (`a fazer`, `fazendo` ou `feito`)
+- **Dependencia**: a subtarefa em `subtarefa_id` depende da subtarefa em
+  `subtarefa_dependente_id`, com indicação se a dependência é obrigatória
 
 ## Funcionalidades
 
 - Cadastro e gerenciamento dos dados pelo Django Admin
-- Checagem manual de dependências via ORM antes de concluir uma
-  subtarefa (evita marcar tarefas como concluídas fora de ordem)
+- Consultas nas páginas do app:
+  - `/` lista projetos, membros, subtarefas e dependências
+  - `/projetos/` lista os projetos
+  - `/pendentes/` lista subtarefas com status `a fazer` ou `fazendo`
+  - `/buscar/?titulo=` busca subtarefas por parte do título, sem
+    diferenciar maiúsculas de minúsculas (`titulo__icontains`)
+  - `/status/?status=` filtra subtarefas pelo status
+    (se o parâmetro não vier, usa `a fazer`)
+
+O status da subtarefa segue três etapas: `a fazer`, `fazendo` e `feito`.
+O Admin não impede gravar uma subtarefa como `feito` quando a
+dependência ainda está aberta.
 
 ## Como rodar o projeto
 
@@ -49,6 +62,5 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
-Acesse `http://127.0.0.1:8000/admin` para gerenciar os dados.
-
-
+Acesse `http://127.0.0.1:8000/` para as consultas e
+`http://127.0.0.1:8000/admin` para gerenciar os dados.
