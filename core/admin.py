@@ -8,8 +8,8 @@ class EquipeAdmin(admin.ModelAdmin):
 
 
 class PerfilAdmin(admin.ModelAdmin):
-    list_display = ('usuario', 'equipe')
-    list_filter = ('equipe',)
+    list_display = ('usuario', 'equipe', 'papel')
+    list_filter = ('equipe', 'papel')
 
 
 admin.site.register(Equipe, EquipeAdmin)

@@ -21,8 +21,18 @@ class DaEquipe(models.Model):
 
 
 class Perfil(models.Model):
+    PAPEIS = [
+        ('admin', 'Administrador'),
+        ('operador', 'Operador'),
+    ]
+
     usuario = models.OneToOneField(User, on_delete=models.CASCADE)
     equipe = models.ForeignKey(Equipe, on_delete=models.PROTECT)
+    papel = models.CharField(max_length=20, choices=PAPEIS, default='operador')
 
     def __str__(self):
         return f'{self.usuario.username} ({self.equipe})'
+
+    @property
+    def eh_admin(self):
+        return self.papel == 'admin'
