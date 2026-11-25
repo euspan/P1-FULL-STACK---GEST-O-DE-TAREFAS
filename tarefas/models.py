@@ -29,8 +29,15 @@ class Subtarefa(models.Model):
     projeto_id = models.IntegerField()
     responsavel_id = models.IntegerField()
     prazo = models.DateField()
-    concluida = models.BooleanField(default=False)
-    status = models.CharField(max_length=20, default='a fazer')
+    status = models.CharField(
+        max_length=20,
+        choices=[
+            ('a fazer', 'a fazer'),
+            ('fazendo', 'fazendo'),
+            ('feito', 'feito'),
+        ],
+        default='a fazer',
+    )
 
     def __str__(self):
         return self.titulo

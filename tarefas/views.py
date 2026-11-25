@@ -40,7 +40,9 @@ def listar_projetos(request):
 
 
 def listar_pendentes(request):
-    pendentes = Subtarefa.objects.filter(concluida=False)
+    a_fazer = Subtarefa.objects.filter(status='a fazer')
+    fazendo = Subtarefa.objects.filter(status='fazendo')
+    pendentes = list(a_fazer) + list(fazendo)
     texto = ', '.join(str(s) for s in pendentes)
     return HttpResponse(f'Pendentes: {texto}')
 
