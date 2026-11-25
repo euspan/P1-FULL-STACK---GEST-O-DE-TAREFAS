@@ -1,7 +1,9 @@
 from django.db import models
 
+from core.models import DaEquipe
 
-class Membro(models.Model):
+
+class Membro(DaEquipe):
     nome = models.CharField(max_length=100)
     email = models.CharField(max_length=150)
     cargo = models.CharField(max_length=50)
@@ -11,7 +13,7 @@ class Membro(models.Model):
         return self.nome
 
 
-class Projeto(models.Model):
+class Projeto(DaEquipe):
     nome = models.CharField(max_length=200)
     descricao = models.TextField()
     data_inicio = models.DateField()
@@ -21,7 +23,7 @@ class Projeto(models.Model):
         return self.nome
 
 
-class Subtarefa(models.Model):
+class Subtarefa(DaEquipe):
     titulo = models.CharField(max_length=200)
     descricao = models.TextField()
     # relaciona com Projeto e Membro guardando o id,
@@ -43,7 +45,7 @@ class Subtarefa(models.Model):
         return self.titulo
 
 
-class Dependencia(models.Model):
+class Dependencia(DaEquipe):
     # subtarefa que possui a dependência
     subtarefa_id = models.IntegerField()
     # subtarefa que precisa ser concluída antes
